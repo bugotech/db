@@ -1,5 +1,5 @@
 auto-service: bugotech.db
-priority: 100
+priority: 900
 
 services:
  - \Bugotech\Db\DbServiceProvider
