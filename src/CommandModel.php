@@ -1,4 +1,4 @@
-<?php namespace Bugotech\Foundation\Database;
+<?php namespace Bugotech\Db;
 
 use Bugotech\Validator\Validates;
 use Bugotech\Foundation\Support\Attributes;

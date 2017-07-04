@@ -1,4 +1,4 @@
-<?php namespace Bugotech\Foundation\Database;
+<?php namespace Bugotech\Db;
 
 use Bugotech\Db\Traits\CastModel;
 use Bugotech\Db\Traits\MutatorModel;
