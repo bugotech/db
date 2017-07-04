@@ -1,0 +1,4 @@
+auto-service: bugotech.db
+
+services:
+ - \Bugotech\Db\DbServiceProvider

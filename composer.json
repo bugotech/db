@@ -1,0 +1,30 @@
+{
+    "name"       : "bugotech/db",
+    "description": "The Bugotech Database package.",
+    "homepage"   : "http://www.netforce.com.br",
+    "license"    : "GPL v.3",
+
+    "authors": [
+        {
+            "name" : "Bruno Gonçalves",
+            "email": "bugotech@gmail.com"
+        }
+    ],
+
+    "require": {
+        "illuminate/database": "5.2.*",
+        "bugotech/validator" : "dev-master"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Bugotech\\Db\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+
+    "minimum-stability": "dev",
+    "prefer-stable"    : true
+}
