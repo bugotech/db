@@ -2,18 +2,6 @@
 
 trait LoaddingModel
 {
-
-    /**
-     * Registrar eventos.
-     */
-    public static function bootValidatorModel()
-    {
-        // Validar
-        self::saving(function ($model) {
-            $model->validate();
-        }, -100);
-    }
-
     /**
      * Register a loading model event with the dispatcher.
      *
