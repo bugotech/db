@@ -71,7 +71,7 @@ return [
             'password' => env('DB_PASSWORD'),
             'options'  => [
                 'database' => env('DB_DBNAME_AUTH', 'admin'), // sets the authentication database required by mongo 3
-            ]
+            ],
         ],
 
         'tests' => [
