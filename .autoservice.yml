@@ -2,4 +2,5 @@ auto-service: bugotech.db
 priority: 900
 
 services:
+ - \Jenssegers\Mongodb\MongodbServiceProvider
  - \Bugotech\Db\DbServiceProvider

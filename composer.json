@@ -13,7 +13,8 @@
 
     "require": {
         "illuminate/database": "5.2.*",
-        "bugotech/validator" : "dev-master"
+        "bugotech/validator" : "dev-master",
+        "jenssegers/mongodb" : "3.0.*"
     },
 
     "autoload": {
