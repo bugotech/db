@@ -16,5 +16,8 @@ class DbServiceProvider extends \Illuminate\Database\DatabaseServiceProvider
         // Alias
         $this->app->alias('db', 'Illuminate\Database\DatabaseManager');
         $this->app->alias('db', 'Illuminate\Database\ConnectionResolverInterface');
+
+        // MongoDb
+        $this->app->register('\Jenssegers\Mongodb\MongodbServiceProvider');
     }
 }
