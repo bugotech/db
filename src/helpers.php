@@ -19,3 +19,17 @@ if (! function_exists('db')) {
         return $db->connection($connection);
     }
 }
+
+if (! function_exists('schema')) {
+
+    /**
+     * Database DB Schema.
+     *
+     * @param null $connection
+     * @return \Illuminate\Database\Schema\Builder
+     */
+    function schema($connection = null)
+    {
+        return db($connection)->getSchemaBuilder();
+    }
+}
