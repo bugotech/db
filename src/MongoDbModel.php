@@ -26,6 +26,8 @@ class MongoDbModel extends Eloquent
      */
     public function __construct(array $attributes = [])
     {
+        $this->prepareDates();
+
         $this->fireModelEvent('loading', false);
 
         parent::__construct($attributes);

@@ -22,6 +22,33 @@ trait CastModel
         $cast = parent::getCastType($key);
 
         // Traduzir campos do builder
+        return $this->castAlias($cast);
+    }
+
+    /**
+     * Traduzir campos do builder.
+     * @param $cast
+     * @return string
+     */
+    protected function castAlias($cast)
+    {
+        $cast = trim(strtolower($cast));
+
         return array_key_exists($cast, self::$alias) ? self::$alias[$cast] : $cast;
+    }
+
+    /**
+     * Preparar lista de dates.
+     */
+    protected function prepareDates()
+    {
+        $casts = $this->getCasts();
+        foreach ($casts as $attr => $cast) {
+            $cast = $this->castAlias($cast);
+
+            if ((in_array($cast, ['datetime','date'])) && (! in_array($attr, $this->dates))) {
+                $this->dates[] = $attr;
+            }
+        }
     }
 }
