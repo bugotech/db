@@ -46,7 +46,7 @@ trait CastModel
         foreach ($casts as $attr => $cast) {
             $cast = $this->castAlias($cast);
 
-            if ((in_array($cast, ['datetime','date'])) && (! in_array($attr, $this->dates))) {
+            if ((in_array($cast, ['datetime', 'date'])) && (! in_array($attr, $this->dates))) {
                 $this->dates[] = $attr;
             }
         }
