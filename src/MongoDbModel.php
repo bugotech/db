@@ -9,7 +9,10 @@ use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 class MongoDbModel extends Eloquent
 {
-    use CastModel;
+    use CastModel {
+        CastModel::castAlias as parentCastAlias;
+    }
+
     use MutatorModel;
     use LoaddingModel;
     use ValidatorModel;
@@ -51,5 +54,20 @@ class MongoDbModel extends Eloquent
 
         // Atribuir valores
         return parent::setAttribute($key, $value);
+    }
+
+    /**
+     * @param $cast
+     * @return string
+     */
+    protected function castAlias($cast)
+    {
+        $cast = trim(strtolower($cast));
+
+        if ($cast == 'lkp') {
+            return 'string';
+        }
+
+        return $this->parentCastAlias($cast);
     }
 }
