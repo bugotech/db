@@ -78,20 +78,4 @@ abstract class FlowModel extends MongoDbModel
 
         return $this->embedsOne('\Bugotech\Db\Flow\StepModel', null, null, $relation);
     }
-
-    /**
-     * Handle dynamic method calls into the model.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        if ($this->steps->exists($method)) {
-            return $this->embedsStep($method);
-        }
-
-        return parent::__call($method, $parameters);
-    }
 }
