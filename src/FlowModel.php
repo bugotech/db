@@ -56,4 +56,20 @@ abstract class FlowModel extends MongoDbModel
     {
         return $this->embedsOne('\Bugotech\Db\Flow\Control');
     }
+
+    /**
+     * @param string $key
+     * @return mixed|object
+     */
+    public function getAttributeValue($key)
+    {
+        // Se for objeto de um passo, tranformar em object
+        if ($this->steps->exists($key)) {
+            if (array_key_exists($key, $this->attributes) && (is_array($this->attributes[$key]))) {
+                return (object) $this->attributes[$key];
+            }
+        }
+
+        return parent::getAttributeValue($key);
+    }
 }
