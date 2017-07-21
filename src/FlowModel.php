@@ -32,7 +32,9 @@ abstract class FlowModel extends MongoDbModel
         self::loaded(function (FlowModel $model) {
             // Carregar caixas dos passos
             foreach ($model->steps->all() as $s) {
-                $model->{$s->key}()->associate($model->{$s->key}()->create([]));
+                if (! array_key_exists($s->key, $model->getAttributes())) {
+                    $model->{$s->key}()->associate($model->{$s->key}()->create([]));
+                }
             }
         });
 
