@@ -27,15 +27,18 @@ class Control extends MongoDbModel
         // BeforePost
         self::saving(function (Control $model) {
 
-            $step = $model->parentRelation->steps->current();
+            $steps = $model->parentRelation->getParent()->steps;
+            $step = $steps->current();
 
             // Montar lista de validados
             $model->validated = [];
-            foreach ($model->parentRelation->steps->all() as $s) {
-                if ($s->key == $step->key) {
-                    break;
+            if (! is_null($step)) {
+                foreach ($steps->all() as $s) {
+                    if ($s->key == $step->key) {
+                        break;
+                    }
+                    $model->validated[] = $s->key;
                 }
-                $model->validated[] = $s->key;
             }
         });
     }
