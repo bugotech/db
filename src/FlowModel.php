@@ -29,20 +29,17 @@ abstract class FlowModel extends MongoDbModel
     {
         parent::boot();
 
-        self::loaded(function (FlowModel $model) {
-            // Carregar caixas dos passos
-            foreach ($model->steps->all() as $s) {
-                if (! array_key_exists($s->key, $model->getAttributes())) {
-                    $model->{$s->key}()->associate($model->{$s->key}()->create([]));
-                }
-            }
-        });
-
         // BeforePost
         self::saving(function (FlowModel $model) {
             // Iniciar control
             if (! array_key_exists('control', $model->getAttributes())) {
                 $model->control()->associate($model->control()->create([]));
+            }
+
+            foreach ($model->steps->all() as $s) {
+                if (! array_key_exists($s->key, $model->getAttributes())) {
+                    $model->{$s->key}()->associate($model->{$s->key}()->create([]));
+                }
             }
         });
 
