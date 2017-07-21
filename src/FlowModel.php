@@ -23,7 +23,7 @@ abstract class FlowModel extends MongoDbModel
     }
 
     /**
-     * Boot
+     * Boot.
      */
     protected static function boot()
     {
