@@ -16,10 +16,10 @@ abstract class FlowModel extends MongoDbModel
      */
     public function __construct(array $attributes = [])
     {
-        parent::__construct($attributes);
-
         $this->steps = new Steps();
         $this->bootSteps();
+
+        parent::__construct($attributes);
     }
 
     /**
@@ -28,6 +28,13 @@ abstract class FlowModel extends MongoDbModel
     protected static function boot()
     {
         parent::boot();
+
+        self::loaded(function (FlowModel $model) {
+            // Carregar caixas dos passos
+            foreach ($model->steps->all() as $s) {
+                $model->{$s->key}()->associate($model->{$s->key}()->create([]));
+            }
+        });
 
         // BeforePost
         self::saving(function (FlowModel $model) {
@@ -59,17 +66,18 @@ abstract class FlowModel extends MongoDbModel
 
     /**
      * @param string $key
-     * @return mixed|object
+     * @return \Jenssegers\Mongodb\Relations\EmbedsOne|mixed
      */
     public function getAttribute($key)
     {
         // Se for objeto de um passo, tranformar em object
         if ($this->steps->exists($key)) {
-            if (array_key_exists($key, $this->attributes) && (is_array($this->attributes[$key]))) {
+            return $this->embedsOne('\Bugotech\Db\Flow\StepModel');
+            /*if (array_key_exists($key, $this->attributes) && (is_array($this->attributes[$key]))) {
                 return (object) $this->attributes[$key];
             } else {
                 return (object) [];
-            }
+            }/**/
         }
 
         return parent::getAttribute($key);
