@@ -4,5 +4,5 @@ use Bugotech\Db\MongoDbModel;
 
 class StepModel extends MongoDbModel
 {
-    public $timestamps = true;
+    public $timestamps = false;
 }

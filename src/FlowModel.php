@@ -32,7 +32,7 @@ abstract class FlowModel extends MongoDbModel
         self::loaded(function (FlowModel $model) {
             // Carregar caixas dos passos
             foreach ($model->steps->all() as $s) {
-                $model->getAttribute($s->key)->associate($model->getAttribute($s->key)->create([]));
+                $model->{$s->key}()->associate($model->{$s->key}()->create([]));
             }
         });
 
@@ -65,21 +65,33 @@ abstract class FlowModel extends MongoDbModel
     }
 
     /**
-     * @param string $key
-     * @return \Jenssegers\Mongodb\Relations\EmbedsOne|mixed
+     * @param null $relation
+     * @return \Jenssegers\Mongodb\Relations\EmbedsOne
      */
-    public function getAttribute($key)
+    protected function embedsStep($relation = null)
     {
-        // Se for objeto de um passo, tranformar em object
-        if ($this->steps->exists($key)) {
-            return $this->embedsOne('\Bugotech\Db\Flow\StepModel');
-            /*if (array_key_exists($key, $this->attributes) && (is_array($this->attributes[$key]))) {
-                return (object) $this->attributes[$key];
-            } else {
-                return (object) [];
-            }/**/
+        if (is_null($relation)) {
+            list(, $caller) = debug_backtrace(false);
+
+            $relation = $caller['function'];
         }
 
-        return parent::getAttribute($key);
+        return $this->embedsOne('\Bugotech\Db\Flow\StepModel', null, null, $relation);
+    }
+
+    /**
+     * Handle dynamic method calls into the model.
+     *
+     * @param  string  $method
+     * @param  array  $parameters
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if ($this->steps->exists($method)) {
+            return $this->embedsStep($method);
+        }
+
+        return parent::__call($method, $parameters);
     }
 }
