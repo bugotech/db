@@ -67,6 +67,8 @@ abstract class FlowModel extends MongoDbModel
         if ($this->steps->exists($key)) {
             if (array_key_exists($key, $this->attributes) && (is_array($this->attributes[$key]))) {
                 return (object) $this->attributes[$key];
+            } else {
+                return (object) [];
             }
         }
 
