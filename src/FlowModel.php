@@ -61,7 +61,7 @@ abstract class FlowModel extends MongoDbModel
      * @param string $key
      * @return mixed|object
      */
-    public function getAttributeValue($key)
+    public function getAttribute($key)
     {
         // Se for objeto de um passo, tranformar em object
         if ($this->steps->exists($key)) {
@@ -72,6 +72,6 @@ abstract class FlowModel extends MongoDbModel
             }
         }
 
-        return parent::getAttributeValue($key);
+        return parent::getAttribute($key);
     }
 }
