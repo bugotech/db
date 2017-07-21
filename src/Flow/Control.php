@@ -7,8 +7,8 @@ class Control extends MongoDbModel
     public $timestamps = true;
 
     public $validates = [
-        'step' => 'required',
-        'validated' => 'required',
+        //'step' => 'required',
+        //'validated' => 'required',
     ];
 
     protected $fillable = ['step'];
