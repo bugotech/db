@@ -41,7 +41,11 @@ trait DefaultValuesModel
         $code = sprintf('$value = %s;', $value);
 
         // Executar codigo
-        eval($code);
+        try {
+            eval($code);
+        } catch (\Exception $e) {
+            $value = null;
+        }
 
         return $value;
     }
